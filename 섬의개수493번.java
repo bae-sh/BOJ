@@ -1,14 +1,14 @@
 package 백준;
 
 import java.util.*;
-class Pair{
+/*class Pair{
 	int x;
 	int y;
 	Pair(int x,int y){
 		this.x=x;
 		this.y=y;
 	}
-}
+}*/
 public class 섬의개수493번 {
 	public static final int dx[]= {0,-1,-1,-1,0,1,1,1};
 	public static final int dy[]= {-1,-1,0,1,1,1,0,-1};
