@@ -1,51 +1,37 @@
 package 백준;
 import java.util.*;
+import java.io.*;
 public class 수찾기1920번 {
-	static int check(int a[],int k[],int p,int s) {
-		if(a[a.length-1]<s||a[0]>s) {
+	
+	public static void main(String[] args) throws IOException{
+		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+		int n=Integer.parseInt(br.readLine());
+		int d[]=new int[n];
+		String st[]=br.readLine().split(" ");
+		for(int i=0;i<st.length;i++) {
+			d[i]=Integer.parseInt(st[i]);
+		}
+		Arrays.sort(d);
+		n=Integer.parseInt(br.readLine());
+		st=br.readLine().split(" ");
+		for(int i=0;i<n;i++) {
+			int k=Integer.parseInt(st[i]);
+			System.out.println(check(d,k,0,d.length-1));
+		}
+	}
+	public static int check(int[] d,int n,int left,int right) {
+		int pivot=(left+right)/2;
+		
+		if(d[left]==n||d[pivot]==n||d[right]==n) {
+			return 1;
+		}else if(right-left<=1) {
 			return 0;
 		}
-		if(a[p]>s) {
-			if(k[p]!=0) {
-				return 0;
-			}
-			k[p]=1;
-			if(p==0) {
-				return 0;
-			}
-			p=p/2;
-			return check(a,k,p,s);
-		}
-		else if(a[p]<s) {
-			if(k[p]!=0) {
-				return 0;
-			}
-			if(p+p/2>a.length) {
-				return 0;
-			}
-			k[p]=1;
-			p=p+p/2;
-			return check(a,k,p,s);
+		else if(n<d[pivot]) {
+			return check(d,n,left,pivot);
 		}
 		else {
-			return 1;
+			return check(d,n,pivot+1,right);
 		}
 	}
-	public static void main(String[] args) {
-		Scanner sc=new Scanner(System.in);
-		int n=sc.nextInt();
-		int a[]=new int[n];
-		for(int i=0;i<n;i++) {
-			a[i]=sc.nextInt();
-		}
-		Arrays.sort(a);
-		int m=sc.nextInt();
-		for(int i=0;i<m;i++) {
-			int k[]=new int[n+1];
-			int q=sc.nextInt();
-			int p=a.length/2;
-			System.out.println(check(a,k,p,q));
-		}
-	}
-
 }
