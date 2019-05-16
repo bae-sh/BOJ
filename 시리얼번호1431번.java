@@ -1,6 +1,6 @@
 package 백준;
 import java.util.*;
-public class 시리얼번호1431번 implements Comparable{
+public class 시리얼번호1431번 {
 
 	public static void main(String[] args) {
 		Scanner sc=new Scanner(System.in);
@@ -9,11 +9,6 @@ public class 시리얼번호1431번 implements Comparable{
 		
 	}
 
-	@Override
-	public int compareTo(Object o) {
-		String a=this;
-		if()
-		return 0;
-	}
+	
 
 }
