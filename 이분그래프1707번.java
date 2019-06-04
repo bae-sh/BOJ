@@ -29,9 +29,10 @@ public class 이분그래프1707번 {
 	public static void main(String[] args) {
 		Scanner sc=new Scanner(System.in);
 		int n=sc.nextInt();
-		boolean p=true;
-		boolean pp=true;
+		
 		for(int i=0;i<n;i++) {
+			boolean p=true;
+			boolean pp=true;
 			int x=sc.nextInt();
 			int y=sc.nextInt();
 			a=(ArrayList<Integer>[]) new ArrayList[x+1];
