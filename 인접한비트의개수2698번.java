@@ -8,10 +8,6 @@ public class 인접한비트의개수2698번 {
 		for(int i=1;i<=100;i++) {
 		}
 	}
-	static int med(int dp[][],int a) {
-		if(dp[a+1][0]==1) {
-			
-		}
 	}
 
-}
+

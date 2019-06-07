@@ -1,28 +1,35 @@
 package 백준;
 import java.util.*;
+import java.io.*;
 public class 전화번호목록5052번 {
 
-	public static void main(String[] args) {
-		Scanner sc=new Scanner(System.in);
-		int n=sc.nextInt();
-		for(int i=0;i<n;i++) {
-			int a=sc.nextInt();
-			String d[]=new String[a];
-			d[0]=sc.next();
-			boolean b=false;
-			for(int j=1;j<a;j++) {
-				d[j]=sc.next();
-				if(d[j].substring(0, d[0].length()).equals(d[0])) {
-					b=true;
-					break;
+	public static void main(String[] args) throws IOException{
+		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+		int t=Integer.parseInt(br.readLine());
+		while(t-->0) {
+			int n=Integer.parseInt(br.readLine());
+			long d[]=new long[n];
+			boolean b=true;
+			for(int i=0;i<n;i++) {
+				d[i]=Long.parseLong(br.readLine());
+			}
+			Arrays.sort(d);
+			outloop:
+			for(int i=0;i<n;i++) {
+				StringBuilder sb=new StringBuilder();
+				sb.append(d[i]);
+				for(int j=i+1;j<n;j++) {
+					StringBuilder sr=new StringBuilder();
+					sr.append(d[j]);
+					String s=sr.substring(0, sb.length());
+					if(sb.toString().equals(s)) {
+						b=false;
+						break outloop ;
+					}
 				}
-				
 			}
-			if(b==true) {
-				System.out.println("NO");
-			}else {
-				System.out.println("YES");
-			}
+			System.out.println(b==true? "YES":"NO");
+			
 		}
 	}
 
