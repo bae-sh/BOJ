@@ -2,7 +2,7 @@
 #include<queue>
 using namespace std;
 int N;
-char Color[100][100];//
+char Color[100][100];//123
 int Person[100][100][2];//0번은 정상 1번은 적록색약
 int dx[] = { -1,0,1,0 };
 int dy[] = { 0,1,0,-1 };
