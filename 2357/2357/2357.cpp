@@ -13,7 +13,7 @@ int setMaxTree(int n,int s,int e) {
 	
 	int mid = (s + e) / 2;
 	return maxTree[n] = max(setMaxTree(n * 2, s, mid), setMaxTree(n * 2 + 1, mid + 1, e));
-
+	
 }
 int setMinTree(int n, int s, int e) {
 	if (s == e) {
