@@ -1,4 +1,3 @@
-package 백준;
 import java.util.*;
 public class ACM호텔10250번 {
 
