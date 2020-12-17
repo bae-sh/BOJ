@@ -17,6 +17,10 @@ int main() {
 	}
 	while (T--) {
 		int a, b; cin >> a >> b;
-		cout << dp[a][b] << "\n";
+		long long ans = 0;
+		for(int i=1;i<=b;i++){
+			ans = (ans + dp[a][i]) % mod;
+		}
+		cout << ans << "\n";
 	}
 }
