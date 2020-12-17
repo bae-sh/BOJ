@@ -9,7 +9,7 @@ int main() {
 
 	cin >> N >> L >> R;
 	dp[1][1][1] = 1;
-	for (int i = 1; i <= N; i++) {
+	for (int i = 1; i < N; i++) {
 		for (int l = 1; l <= i; l++) {
 			for (int r = 1; r <= i; r++) {
 				dp[i + 1][l + 1][r] = (dp[i + 1][l + 1][r]+dp[i][l][r])%mod;
