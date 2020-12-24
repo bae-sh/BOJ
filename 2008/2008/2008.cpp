@@ -3,47 +3,43 @@
 #include<string.h>
 #define INF 987654321
 using namespace std;
-int N;
-int block[50];
-int dp[50][250001];
-int go(int cnt, int diff) {
-	if (diff > 250000) {
-		return -INF;
-	}
-	if (cnt == N) {
-		if (diff == 0) {
-			return 0;
-		}
-		else {
-			return -INF;
-		}
-	}
-	if (dp[cnt][diff] != -1) {
-		return dp[cnt][diff];
-	}
-	dp[cnt][diff] = go(cnt + 1, diff);
-	dp[cnt][diff] = max(dp[cnt][diff], go(cnt + 1, diff + block[cnt]));
-	if (diff > block[cnt]) {
-		dp[cnt][diff] = max(dp[cnt][diff], block[cnt] + go(cnt + 1, diff - block[cnt]));
-	}
-	else {
-		dp[cnt][diff] = max(dp[cnt][diff], diff + go(cnt + 1, block[cnt] -diff));
-	}
-	return dp[cnt][diff];
-}
+int N, M, a, b, X, Y;
+int dp[501][101];//n번 줄까지 고려했을떄 m까지 가는 거리
+int line[501];
 int main() {
 	ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
 
-	cin >> N;
-	for (int i = 0; i < N; i++) {
-		 cin >> block[i];
+	cin >> N >> M >> a >> b >> X >> Y;
+	for (int i = 1; i <= M; i++) {
+		cin >> line[i];
 	}
-	memset(dp, -1, sizeof(dp));
-	int MAX = go(0, 0);
-	if (MAX == 0) {
-		cout << -1 << "\n";
+	for (int i = 0; i <= M; i++) {
+		for (int j = 0; j <= N; j++) {
+			dp[i][j] = INF;
+		}
 	}
-	else {
-		cout << MAX << "\n";
+	for (int i = 1; i <= N; i++) {
+		if (a == i) {
+			dp[0][i] = 0;
+		}
+		else {
+			dp[0][i] = abs(i - a) * Y;
+		}
 	}
+	for (int i = 1; i <= M; i++) {
+		for (int j = 1; j <= N; j++) {
+			for (int k = 1; k <= N; k++) {
+				if (j == k && (line[i] == k || line[i] == k - 1)) {
+					dp[i][k] = min(dp[i][k], dp[i - 1][j] + X);
+				}
+				else if ((j <= line[i] && line[i] <= k - 1) || (k <= line[i] && line[i] <= j - 1)) {
+					dp[i][k] = min(dp[i][k], dp[i - 1][j] + (abs(j - k) - 1) * Y);
+				}
+				else {
+					dp[i][k] = min(dp[i][k], dp[i - 1][j] + abs(j - k) * Y);
+				}
+			}
+		}
+	}
+	cout << dp[M][b] << "\n";
 }
