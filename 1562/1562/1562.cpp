@@ -12,7 +12,7 @@ long long cnt;
 long long go(int digit, int num,int use) {
 	long long& ans = dp[digit][num][use];
 	if (digit == n) {
-		if (use == 0b1111111111) {
+		if (use == ((1 << 10) - 1)) {
 			return ans = 1;
 		}
 		else {
