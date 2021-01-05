@@ -1,29 +1,34 @@
 #include<iostream>
-#include<string>
+#include<cstring>
 #include<algorithm>
 #define INF 987654321
 using namespace std;
 long long dp[2501];
-bool check(string s) {
-	for (int i = 0; i < s.length() / 2; i++) {
-		if (s[i] != s[s.length() - 1 - i]) {
-			return false;
-		}
+int pal[2501][2501];
+string s;
+int check(int start, int end) {
+	if (start >= end) {
+		return 1;
 	}
-	return true;
+	if (pal[start][end] != -1) {
+		return pal[start][end];
+	}
+	if (s[start] != s[end]) {
+		return pal[start][end] = 0;
+	}
+	return pal[start][end] = check(start + 1, end - 1);
 }
 int main() {
 	ios::sync_with_stdio(false); cin.tie(0); cout.tie(0); 
 
-	string s; cin >> s;
+	cin >> s;
 	for (int i = 0; i < s.length(); i++) {
 		dp[i] = INF;
 	}
-
+	memset(pal, -1, sizeof(pal));
 	for (int i = 0; i < s.length(); i++) {
-		for (int j = i; j >= 0; j--) {
-			string temp = s.substr(j, i - j + 1);
-			if (check(temp)) {
+		for (int j = 0; j <= i; j++) {
+			if (check(j,i)) {
 				if (j == 0) {
 					dp[i] = 1;
 				}
