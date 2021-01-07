@@ -10,9 +10,6 @@ vector<int> a[100001];
 int first[100001];
 vector<int> order;
 int N, M;
-void c(int a[]) {
-
-}
 void treeSet(int start, int end, int index) {
 	if (start == end) {
 		tree[index] = start;
