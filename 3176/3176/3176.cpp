@@ -1,136 +1,97 @@
-#include <cstdio>
-#include <algorithm>
-#include <iostream>
-#include <vector>
-#include <set>
-#include <map>
-#include <queue>
-#include <stack>
-#include <sstream>
+#include<iostream>
+#include<vector>
+#include<algorithm>
+#include<queue>
+#include<string.h>
 using namespace std;
-const int MAX = 100111;
-vector<pair<int, int>> a[MAX];
-int parent[MAX];
-bool check[MAX];
-int depth[MAX];
-int p[MAX][18];
-int len[MAX];
-int len_min[MAX][18];
-int len_max[MAX][18];
-pair<int, int> lca(int u, int v) {
-    if (depth[u] < depth[v]) {
-        swap(u, v);
-    }
-    int ans_min = 10000000;
-    int ans_max = 0;
-    int log = 1;
-    for (log = 1; (1 << log) <= depth[u]; log++);
-    log -= 1;
-    for (int i = log; i >= 0; i--) {
-        if (depth[u] - (1 << i) >= depth[v]) {
-            if (ans_min > len_min[u][i]) {
-                ans_min = len_min[u][i];
-            }
-            if (ans_max < len_max[u][i]) {
-                ans_max = len_max[u][i];
-            }
-            u = p[u][i];
-        }
-    }
-    //printf("! %d %d\n",u,v);
-    //printf("@ %d %d\n",ans_min,ans_max);
-    if (u == v) {
-        return make_pair(ans_min, ans_max);
-    }
-    else {
-        for (int i = log; i >= 0; i--) {
-            if (p[u][i] != 0 && p[u][i] != p[v][i]) {
-                if (ans_min > len_min[u][i]) {
-                    ans_min = len_min[u][i];
-                }
-                if (ans_max < len_max[u][i]) {
-                    ans_max = len_max[u][i];
-                }
-                if (ans_min > len_min[v][i]) {
-                    ans_min = len_min[v][i];
-                }
-                if (ans_max < len_max[v][i]) {
-                    ans_max = len_max[v][i];
-                }
-                u = p[u][i];
-                v = p[v][i];
-            }
-        }
-        if (ans_min > len_min[u][0]) {
-            ans_min = len_min[u][0];
-        }
-        if (ans_max < len_max[u][0]) {
-            ans_max = len_max[u][0];
-        }
-        if (ans_min > len_min[v][0]) {
-            ans_min = len_min[v][0];
-        }
-        if (ans_max < len_max[v][0]) {
-            ans_max = len_max[v][0];
-        }
-        return make_pair(ans_min, ans_max);
-    }
+int N, K;
+vector<pair<int,int>> v[100001];
+int p[100001][17];
+int dpMin[100001][17];
+int dpMax[100001][17];
+int depth[100001];
+void lca(int x, int y) {
+	int Max = 0; int Min = 987654321;
+	int parent = 0;
+	if (depth[x] < depth[y]) {
+		swap(x, y);
+	}
+	int log = 0;
+	for (log = 0; (1 << (log + 1)) <= depth[x]; log++);
+	for (int i = log; i >= 0; i--) {
+		if (depth[x] - (1 << i) >= depth[y]) {
+			Max = max(Max, dpMax[x][i]);
+			Min = min(Min, dpMin[x][i]);
+			x = p[x][i];
+		}
+	}
+	if (x == y) {
+		cout << Min << " " << Max << "\n";
+	}
+	else {
+		for (int i = log; i >= 0; i--) {
+			if (p[x][i] != 0 && p[x][i] != p[y][i]) {
+				Max = max(Max, dpMax[x][i]);
+				Min = min(Min, dpMin[x][i]);
+				Max = max(Max, dpMax[y][i]);
+				Min = min(Min, dpMin[y][i]);
+				x = p[x][i];
+				y = p[y][i];
+			}
+		}
+		Max = max(Max, dpMax[x][0]);
+		Min = min(Min, dpMin[x][0]);
+		Max = max(Max, dpMax[y][0]);
+		Min = min(Min, dpMin[y][0]);
+		cout << Min << " " << Max << "\n";
+	}
+	return;
 }
 int main() {
-    int n;
-    scanf("%d", &n);
-    for (int i = 0; i < n - 1; i++) {
-        int u, v, w;
-        scanf("%d %d %d", &u, &v, &w);
-        a[u].push_back(make_pair(v, w));
-        a[v].push_back(make_pair(u, w));
-    }
-    depth[1] = 0;
-    check[1] = true;
-    queue<int> q;
-    q.push(1);
-    parent[1] = 0;
-    while (!q.empty()) {
-        int x = q.front();
-        q.pop();
-        for (auto p : a[x]) {
-            int y = p.first;
-            if (!check[y]) {
-                depth[y] = depth[x] + 1;
-                check[y] = true;
-                parent[y] = x;
-                len[y] = p.second;
-                q.push(y);
-            }
-        }
-    }
-    for (int i = 1; i <= n; i++) {
-        p[i][0] = parent[i];
-        len_min[i][0] = len[i];
-        len_max[i][0] = len[i];
-    }
-    for (int j = 1; (1 << j) < n; j++) {
-        for (int i = 1; i <= n; i++) {
-            if (p[i][j - 1] != 0) {
-                p[i][j] = p[p[i][j - 1]][j - 1];
-                len_min[i][j] = len_min[i][j - 1];
-                len_max[i][j] = len_max[i][j - 1];
-                if (p[p[i][j - 1]][j - 1] != 0) {
+	ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
 
-                    len_min[i][j] = min(len_min[i][j - 1], len_min[p[i][j - 1]][j - 1]);
-                    len_max[i][j] = max(len_max[i][j - 1], len_max[p[i][j - 1]][j - 1]);
-                }
-                //printf("%d %d %d %d\n",i,j,len_min[i][j],len_max[i][j]);
-            }
-        }
-    }
-    int m;
-    scanf("%d", &m);
-    while (m--) {
-        int u, v;
-        scanf("%d %d", &u, &v);
-        auto p = lca(u, v);
-        printf("%d %d\n", p.first, p.second);
-    }
-    return 0;
+	cin >> N;
+	for (int i = 0; i < N - 1; i++) {
+		int a, b, c; cin >> a >> b >> c;
+		v[a].push_back({ b,c });
+		v[b].push_back({ a,c });
+	}
+	for (int i = 0; i < 100001; i++) {
+		for (int j = 0; j < 17; j++) {
+			dpMin[i][j] = 987654321;
+		}
+	}
+
+	queue<int> q;
+	q.push(1);
+	while (!q.empty()) {
+		int cur = q.front(); q.pop();
+		for (auto x : v[cur]) {
+			int next = x.first;
+			int cost = x.second;
+			if (next != 1 && p[next][0] == 0) {
+				p[next][0] = cur;
+				dpMin[next][0] = dpMax[next][0] = cost;
+				depth[next] = depth[cur] + 1;
+				q.push(next);
+			}
+		}
+	}
+
+	for (int j = 1; (1 << j) < N; j++) {
+		for (int i = 1; i <= N; i++) {
+			if (p[i][j-1] != 0) {
+				p[i][j] = p[p[i][j - 1]][j - 1];
+				if (p[i][j] != 0) {
+					dpMin[i][j] = min(dpMin[p[i][j - 1]][j - 1], dpMin[i][j - 1]);
+					dpMax[i][j] = max(dpMax[p[i][j - 1]][j - 1], dpMax[i][j - 1]);
+				}
+			}
+		}
+	}
+	cin >> K;
+	for (int i = 0; i < K; i++) {
+		int a, b; cin >> a >> b;
+		lca(a, b);
+	}
 }
