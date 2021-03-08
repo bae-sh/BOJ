@@ -26,10 +26,6 @@ int main(int argc, const char * argv[]) {
         if(v[2]>v[3]){
             swap(v[2], v[3]);
         }
-        if(v[0]>v[2]){
-            swap(v[0], v[2]);
-            swap(v[1], v[3]);
-        }
         if(v[0]<=v[3]&&v[1]>=v[2]){
             cout<<"1\n";
         }else{
