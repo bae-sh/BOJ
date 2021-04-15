@@ -62,7 +62,7 @@ int N,M;
         }
     }
 }*/
-
+/*
 //top -down
 int go(int days, int coupons){
     if(days>N) return 0;
@@ -76,9 +76,11 @@ int go(int days, int coupons){
         res = min(res,go(days+1,coupons-3));
     }
     return res;
-}
+}*/
+vector<int> v1;
+vector<int> v2;
 int main(int argc, const char * argv[]) {
-    ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+    /*ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
     cin>>N>>M;
     for(int i=0;i<M;i++){
         int x; cin>>x;
@@ -90,5 +92,10 @@ int main(int argc, const char * argv[]) {
         }
     }
     cout<<go(1,0)<<"\n";
-    return 0;
+    return 0;*/
+    v1.push_back(1);
+    v2.push_back(2);
+    v1=v2;
+    v1[0]=3;
+    cout<<v2.front();
 }
