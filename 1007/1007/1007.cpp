@@ -1,4 +1,4 @@
-#include<iostream>
+/*#include<iostream>
 #include<algorithm>
 #include<vector>
 #include<string.h>
@@ -42,4 +42,23 @@ int main() {
 		} while (next_permutation(order.begin(), order.end()));
 		printf("%.12lf\n", sqrt(ans));
 	}
+}*/
+#include <stdio.h>
+#include <math.h>
+
+void cal(double x, double y, double* c) {//포인터에 값을 저장하기 위해 *c사용
+	*c = sqrt(x * x + y * y + 4);
+}
+
+int main() {
+	double num = 0.0;
+	double* res = &num;
+	cal(0, 0, res);
+	printf("%f\n", *res);
+	cal(-3, 4, res);
+	printf("%f\n", *res);
+	cal(0.3, 0.7, res);
+	printf("%f\n", *res);
+	cal(3.3, -4.5, res);
+	printf("%f\n", *res);
 }
