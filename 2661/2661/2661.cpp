@@ -3,7 +3,7 @@
 #include<string.h>
 using namespace std;
 int N;
-string num[81][81];
+string num[81][81];//
 bool check(int cur_idx, char cur_num) {
 	for (int i = 1; i <= cur_idx; i++) {
 		num[cur_idx][i] = num[cur_idx - 1][i - 1] + cur_num;
