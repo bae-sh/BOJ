@@ -3,7 +3,7 @@
 #include<string>
 using namespace std;
 int L;
-string orgin;;
+string orgin;
 vector<int> getPi(string s){
     int m=s.size(); int j=0;
     vector<int> ret(L,0);
