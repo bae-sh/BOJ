@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <cmath>
 #define MIN -2100000000
 using namespace std;
 vector<int> v;
