@@ -1,5 +1,5 @@
 var fs = require("fs");
-var input = fs.readFileSync("/dev/stdin").toString().split("\n");
+var input = fs.readFileSync("input.txt").toString().split("\n");
 var C = input[0].split(" ");
 let N = parseInt(C[0]);
 let L = parseInt(C[1]);
@@ -74,6 +74,7 @@ function go() {
                 }
             }
         }
+        console.log(v);
         if (count == 0) {
             console.log(days);
             return;
