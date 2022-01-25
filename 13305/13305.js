@@ -1,5 +1,6 @@
 var fs = require("fs"); //"/dev/stdin"
 var input = fs.readFileSync("input.txt").toString().split("\n");
+let n = input[0];
 let distance = input[1].split(" ").map((v) => BigInt(v));
 let costs = input[2].split(" ").map((v) => BigInt(v));
 let minCost = costs[0];
