@@ -1,25 +1,58 @@
-#include<iostream>
-#include<algorithm>
-#include<string.h>
+#include <iostream>
+#include <algorithm>
+#include <string.h>
+#include <stack>
 using namespace std;
-string dp[1001][2];
-void copyDp(){
-    for(int i=0;i<1001;i++){
-        dp[i][0]=dp[i][1];
-    }
-}
-int main(){
-    string s1,s2; cin>>s1>>s2;
-    for(int i=0;i<s1.length();i++){
+int dp[1001][1001];
+
+int main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
+    string s1, s2;
+    cin >> s1 >> s2;
+    for (int i = 0; i < s1.length(); i++)
+    {
         char a = s1[i];
-        for(int j=0;j<s2.length();j++){
+        for (int j = 0; j < s2.length(); j++)
+        {
             char b = s2[j];
-            dp[j+1][1] = dp[j+1][0].length()>dp[j][1].length() ? dp[j+1][0] : dp[j][1];
-            if(a==b){
-                dp[j+1][1] = dp[j+1][1].length() > dp[j][0].length()+1 ? dp[j+1][1] : dp[j][0]+a;
+            if (a == b)
+            {
+                dp[i + 1][j + 1] = dp[i][j] + 1;
+            }
+            else
+            {
+                dp[i + 1][j + 1] = dp[i][j + 1] > dp[i + 1][j] ? dp[i][j + 1] : dp[i + 1][j];
             }
         }
-        copyDp();
     }
-    cout<<dp[s2.length()][1].length()<<"\n"<<dp[s2.length()][1]<<"\n";
+    int len1 = s1.length();
+    int len2 = s2.length();
+    stack<char> st;
+    cout << dp[len1][len2] << "\n";
+    while (dp[len1][len2])
+    {
+        if (dp[len1][len2] == dp[len1 - 1][len2])
+        {
+            len1--;
+        }
+        else if (dp[len1][len2] == dp[len1][len2 - 1])
+        {
+            len2--;
+        }
+        else if (dp[len1][len2] - 1 == dp[len1 - 1][len2 - 1])
+        {
+            st.push(s1[len1 - 1]);
+            len1--;
+            len2--;
+        }
+    }
+
+    while (!st.empty())
+    {
+        cout << st.top();
+        st.pop();
+    }
 }
