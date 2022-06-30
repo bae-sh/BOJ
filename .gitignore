@@ -363,3 +363,6 @@ FodyWeavers.xsd
 /8984
 
 .DS_Store
+
+.vscode
+input.txt
