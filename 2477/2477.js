@@ -11,7 +11,7 @@ for (let i = 0; i < 6; i++) {
 }
 
 arr.push(...arr);
-console.log(arr);
+
 for (let i = 0; i < 6; i++) {
   if (arr[i].a === arr[i + 2].a && arr[i + 1].a === arr[i + 3].a) {
     area = (arr[i].b + arr[i + 2].b) * (arr[i + 1].b + arr[i + 3].b) - arr[i + 1].b * arr[i + 2].b;
