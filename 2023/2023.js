@@ -45,7 +45,3 @@ answer[N].forEach(num => {
   str += `${num}\n`;
 });
 console.log(str);
-const a = ['2
-3
-5
-7'];
