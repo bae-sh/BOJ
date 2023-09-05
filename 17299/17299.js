@@ -1,6 +1,5 @@
 const fs = require('fs');
 const input = fs.readFileSync('input.txt').toString().split('\n');
-
 const N = +input.shift();
 const arr = input.shift().split(' ').map(Number).reverse();
 const ans = [];
